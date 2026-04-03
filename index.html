@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+    overflow-x: hidden;
+    text-align: center;
+}
+
+/* Landing */
+#main {
+    margin-top: 120px;
+    color: white;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+button {
+    padding: 12px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #ff4d6d;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #ff4d6d;
+    color: white;
+}
+
+/* Surprise */
+#surprise {
+    display: none;
+    padding: 20px;
+}
+
+/* Polaroid Photos */
+.photo {
+    display: none;
+    margin-top: 20px;
+}
+
+.photo.active {
+    display: block;
+}
+
+.photo img {
+    width: 90%;
+    max-width: 320px;
+
+    background: white;
+    padding: 10px 10px 25px 10px;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+    transform: rotate(-2deg);
+    transition: transform 0.5s;
+}
+
+.photo img:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+.photo p {
+    margin-top: -15px;
+    font-weight: bold;
+    color: #ff4d6d;
+}
+
+/* Love Note */
+.card {
+    background: rgba(255,255,255,0.9);
+    color: #ff4d6d;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 30px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Final Screen */
+#finalScreen {
+    display: none;
+    margin-top: 80px;
+    animation: fadeIn 2s ease;
+}
+
+#finalScreen h1 {
+    font-size: 60px;
+    color: #ff4d6d;
+}
+
+#finalScreen p {
+    font-size: 22px;
+    color: white;
+}
+
+/* Hearts */
+.heart {
+    position: fixed;
+    color: red;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1;}
+    100% { transform: translateY(-10vh); opacity: 0;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.8);}
+    to {opacity: 1; transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Landing -->
+<div id="main">
+    <h1>Hey My Love ❤️</h1>
+    <p>I have something special for you...</p>
+    <button onclick="showSurprise()">Click Me 😘</button>
+</div>
+
+<!-- Surprise -->
+<div id="surprise">
+
+    <button onclick="toggleMusic()">🎵 Play / Pause</button>
+
+    <!-- 📸 8 Photos -->
+    <div class="photo active">
+        <img src="photo1.jpg">
+        <p>Our cutest moment ❤️</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo2.jpg">
+        <p>You make my world better 🌍</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo3.jpg">
+        <p>My favorite person 😘</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo4.jpg">
+        <p>Every moment with you = magic ✨</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo5.jpg">
+        <p>My happy place 💖</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo6.jpg">
+        <p>You + Me forever ♾️</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo7.jpg">
+        <p>My heart is yours ❤️</p>
+    </div>
+
+    <div class="photo">
+        <img src="photo8.jpg">
+        <p>The best thing in my life 💕</p>
+    </div>
+
+    <!-- 💌 Love Note -->
+    <div class="card">
+        <h2>Happy Birthday My Princess 🎂❤️</h2>
+        <p>
+        You are the best!! <br><br>
+        You deserve every happiness in the world (with me), <br><br>
+        I love you more than anything, You are my world and I will always be there for you even if you don’t want me there 😁, <br><br>
+        I annoy you a lot and I’m not sorry for that because annoying you is my birth right and I will continue to annoy you forever, even after we die, ill fry you in hell and will eat you. <br><br>
+        So, don’t gussa on me and maaf me, because I’m your kuchupuchu and you are my butterfly. <br><br>
+        Once again happiest birthday meri cute little princess, <br><br>
+        Ill like to conclude this note by just saying “FUCK YOU” 😈 <br><br>
+        I LOVE YOU SOOOOOOOO MUCH MERI GOLGAPPA. ❤️
+        </p>
+    </div>
+
+    <!-- 💥 FINAL SCREEN -->
+    <div id="finalScreen">
+        <h1>I LOVE YOU ❤️</h1>
+        <p>Forever & Always 💖</p>
+    </div>
+
+</div>
+
+<script>
+// Show surprise
+function showSurprise() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("surprise").style.display = "block";
+
+    document.getElementById("bgMusic").play();
+
+    createHearts();
+    startSlideshow();
+}
+
+// Slideshow with ending
+let index = 0;
+
+function startSlideshow() {
+    const photos = document.querySelectorAll(".photo");
+
+    let interval = setInterval(() => {
+        photos[index].classList.remove("active");
+        index++;
+
+        if (index >= photos.length) {
+            clearInterval(interval);
+
+            document.querySelectorAll(".photo").forEach(p => p.style.display = "none");
+
+            document.getElementById("finalScreen").style.display = "block";
+            return;
+        }
+
+        photos[index].classList.add("active");
+
+    }, 3000);
+}
+
+// Hearts
+function createHearts() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 300);
+}
+
+// Music toggle
+function toggleMusic() {
+    let music = document.getElementById("bgMusic");
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+</script>
+
+</body>
+</html>
